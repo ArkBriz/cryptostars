@@ -1,8 +1,9 @@
-const getUserData = () => {
+const getUserData = (onSuccess) => {
   fetch('https://cryptostar.grading.htmlacademy.pro/user')
     .then((response) => response.json())
     .then((userData) => {
       console.log(userData);
+      onSuccess(userData);
     })
     .catch(() => {
       console.log('Ошибка!');
