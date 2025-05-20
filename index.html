@@ -195,6 +195,7 @@
               </div>
             </div>
           </div>
+
           <div class="custom-toggle users-nav__custom-toggle">
             <label>
               <input type="checkbox" id="checked-users" name="checkbox">
@@ -202,16 +203,16 @@
               <span class="custom-toggle__label">Только проверенные пользователи</span>
             </label>
           </div>
+
           <div class="users-nav__tabs">
             <div class="tabs no-transition-global tabs--toggle-list-map" data-tabs="parent" data-delay="300">
               <!-- При переключении с карты на список и обратно нужно выделить активный пункт .is-active -->
               <div class="tabs__controls" data-tabs="controls">
-                <button class="tabs__control btn is-active" type="button"
-                  data-tabs="control">Cписок</button>
+                <button class="tabs__control btn is-active" type="button" data-tabs="control">Cписок</button>
                 <button class="tabs__control btn" type="button" data-tabs="control">Карта</button>
               </div>
             </div>
-            </div>
+          </div>
         </div>
 
         <!-- При переключении на карту блок .users-list нужно скрыть. Способ сокрытия подойдёт любой -->
@@ -241,10 +242,12 @@
         просто показывается пустая карта
       -->
       <div class="container container--lightbackground" style="display: none">
-        <div class="message message--noresults"><span class="message__icon">
-          <svg width="60" height="60" aria-hidden="true">
-            <use xlink:href="#icon-no-results"></use>
-          </svg></span>
+        <div class="message message--noresults">
+          <span class="message__icon">
+            <svg width="60" height="60" aria-hidden="true">
+              <use xlink:href="#icon-no-results"></use>
+            </svg>
+          </span>
           <p class="message__paragraph">Нет подходящих объявлений</p>
         </div>
       </div>
@@ -265,9 +268,9 @@
 
     <footer class="footer">
       <div class="container"><span class="footer__logo">
-          <svg width="92" height="36" aria-hidden="true">
-              <use xlink:href="#crypto-stars-logo"></use>
-          </svg></span>
+        <svg width="92" height="36" aria-hidden="true">
+          <use xlink:href="#crypto-stars-logo"></use>
+        </svg></span>
         <p class="footer__copyright">Разработано в HTML Academy</p>
       </div>
     </footer>
@@ -589,14 +592,13 @@
       <td class="users-list__table-cell users-list__table-name">
         <!-- Обратите внимание, что "звёздочка только" у верифицированных пользователей -->
         <svg width="20" height="20" aria-hidden="true">
-            <use xlink:href="#icon-star"></use>
+          <use xlink:href="#icon-star"></use>
         </svg>
         <span>John Smith</span>
       </td>
       <td class="users-list__table-cell users-list__table-currency">keks</td>
       <td class="users-list__table-cell users-list__table-exchangerate">9 999 999&nbsp;₽</td>
-      <td class="users-list__table-cell users-list__table-cashlimit">9 999
-          999&nbsp;₽&nbsp;-&nbsp;9 999 999 000&nbsp;₽</td>
+      <td class="users-list__table-cell users-list__table-cashlimit">9 999 999&nbsp;₽&nbsp;-&nbsp;9 999 999 000&nbsp;₽</td>
       <td class="users-list__table-cell users-list__table-payments">
         <ul class="users-list__badges-list">
           <li class="users-list__badges-item badge">BitTransfer</li>
