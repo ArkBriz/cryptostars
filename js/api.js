@@ -1,20 +1,19 @@
-const getUserData = (onSuccess) => {
+const getUserData = (onSuccess, onFail) => {
   fetch('https://cryptostar.grading.htmlacademy.pro/user')
     .then((response) => response.json())
     .then((userData) => {
-      console.log(userData);
       onSuccess(userData);
     })
     .catch(() => {
-      console.log('Ошибка!');
+      onFail();
     });
 };
 
-const getContractorsData = () => {
+const getContractorsData = (onSuccess) => {
   fetch('https://cryptostar.grading.htmlacademy.pro/contractors')
     .then((response) => response.json())
     .then((contractorsData) => {
-      console.log(contractorsData);
+      onSuccess(contractorsData);
     })
     .catch(() => {
       console.log('Ошибка!');

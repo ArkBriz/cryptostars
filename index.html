@@ -594,11 +594,14 @@
         <svg width="20" height="20" aria-hidden="true">
           <use xlink:href="#icon-star"></use>
         </svg>
-        <span>John Smith</span>
+        <span class="users-list__user-name">John Smith</span>
       </td>
       <td class="users-list__table-cell users-list__table-currency">keks</td>
       <td class="users-list__table-cell users-list__table-exchangerate">9 999 999&nbsp;₽</td>
-      <td class="users-list__table-cell users-list__table-cashlimit">9 999 999&nbsp;₽&nbsp;-&nbsp;9 999 999 000&nbsp;₽</td>
+      <td class="users-list__table-cell users-list__table-cashlimit">
+        <span class="users-list__min-cashlimit">9 999 999&nbsp;₽&nbsp;</span>
+        <span class="users-list__max-cashlimit">&nbsp;9 999 999 000&nbsp;₽</span>
+      </td>
       <td class="users-list__table-cell users-list__table-payments">
         <ul class="users-list__badges-list">
           <li class="users-list__badges-item badge">BitTransfer</li>

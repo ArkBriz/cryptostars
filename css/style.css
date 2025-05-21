@@ -1400,7 +1400,7 @@ button,
 }
 
 .users-list__table .users-list__table-body .users-list__table-cell span {
-  width: 140px;
+  max-width: 140px;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   display: -webkit-box;
