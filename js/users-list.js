@@ -34,6 +34,7 @@ const createUserItem = (userData) => {
 };
 
 const renderUsersList = (usersData) => {
+  usersList.innerHTML = '';
   const fragment = document.createDocumentFragment();
 
   usersData.forEach((userData) => {

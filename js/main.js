@@ -1,6 +1,10 @@
 import { getUserData, getContractorsData } from "./api.js";
 import { setUserData, hideProfileBlock } from "./user.js";
-import { renderUsersList } from "./users-list.js";
+import { initSorting } from "./sorting.js";
+
+const onGetDataSuccess = (data) => {
+  initSorting(data);
+};
 
 getUserData(setUserData, hideProfileBlock);
-getContractorsData(renderUsersList);
+getContractorsData(onGetDataSuccess);
