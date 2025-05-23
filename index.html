@@ -11,6 +11,7 @@
   <link rel="preload" href="fonts/exo2-semibold.woff2" as="font" crossorigin="anonymous">
   <link rel="preload" href="fonts/exo2-bold.woff2" as="font" crossorigin="anonymous">
   <link rel="stylesheet" href="css/style.min.css">
+  <link rel="stylesheet" href="leaflet/leaflet.css">
 </head>
 
 <body>
@@ -208,8 +209,8 @@
             <div class="tabs no-transition-global tabs--toggle-list-map" data-tabs="parent" data-delay="300">
               <!-- При переключении с карты на список и обратно нужно выделить активный пункт .is-active -->
               <div class="tabs__controls" data-tabs="controls">
-                <button class="tabs__control btn is-active" type="button" data-tabs="control">Cписок</button>
-                <button class="tabs__control btn" type="button" data-tabs="control">Карта</button>
+                <button class="tabs__control btn is-active" type="button" data-tabs="control" data-view="list">Cписок</button>
+                <button class="tabs__control btn" type="button" data-tabs="control" data-view="map">Карта</button>
               </div>
             </div>
           </div>
@@ -253,8 +254,8 @@
       </div>
 
       <!-- При переключении на карту нужно отобразить данный контейнер -->
-      <div class="container" style="display: none">
-        <div class="map">
+      <div class="container map-container" style="display: none">
+        <div class="map" id="map">
           <!--
             Карту нужно отрисовать в этот контейнер. Иконки для карты -
             img/pin.svg и img/pin-verified.svg для обычных пользователей
@@ -652,6 +653,7 @@
   </template>
 
   <script src="./js/main.js" type="module"></script>
+  <script src="./leaflet/leaflet.js"></script>
 </body>
 
 </html>
