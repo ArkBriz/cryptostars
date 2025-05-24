@@ -3,7 +3,9 @@
 // отрисовать балуны, передав эту функцию в метод bindPopup
 
 import { map } from "./map.js";
+import { onlyChecked } from "./sorting.js";
 
+const markersGroup = L.layerGroup().addTo(map);
 const markerPopupTemplate = document.querySelector('#map-baloon__template')
   .content.querySelector('.user-card');
 
@@ -52,27 +54,28 @@ const createMarkerPopup = (seller) => {
 };
 
 const showMarkers = () => {
+  markersGroup.clearLayers();
+
   const cashSellers = users.filter((user) =>
     user.status === 'seller' &&
-    user.paymentMethods.some((method) => method.provider === 'Cash in person')
+    user.paymentMethods.some((method) => method.provider === 'Cash in person' &&
+      (!onlyChecked || user.isVerified))
   );
 
   cashSellers.forEach((seller) => {
     const { lat, lng } = seller.coords;
     const marker = L.marker(
-      {
-        lat,
-        lng,
-      },
-      {
-        icon: seller.isVerified ? icon : iconVerified
-      },
+      { lat, lng },
+      { icon: seller.isVerified ? icon : iconVerified },
     )
+    .bindPopup(createMarkerPopup(seller));
 
-    marker
-      .addTo(map)
-      .bindPopup(createMarkerPopup(seller));
+    markersGroup.addLayer(marker);
   })
 };
 
-export { getUsers };
+const updateMarkers = () => {
+  showMarkers();
+};
+
+export { getUsers, updateMarkers };

@@ -1,4 +1,5 @@
 import { renderUsersList } from "./users-list.js";
+import { updateMarkers } from './markers.js';
 
 const sortingTabsBlock = document.querySelector('.tabs--toggle-buy-sell');
 const tabButtons = sortingTabsBlock.querySelectorAll('button[data-tabs="control"]');
@@ -50,9 +51,10 @@ const initSorting = (data) => {
   checkbox.addEventListener('change', () => {
     onlyChecked = checkbox.checked;
     updateUserList();
+    updateMarkers();
   });
 
   sortUsers(currentStatus);
 }
 
-export { initSorting };
+export { initSorting, onlyChecked };
