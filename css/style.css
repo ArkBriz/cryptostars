@@ -1567,6 +1567,7 @@ button,
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
+  font-family: 'exo2', sans-serif;
 }
 
 .user-card fieldset {
@@ -1622,7 +1623,7 @@ button,
   align-items: flex-start;
   width: 100%;
   margin: 0;
-  margin-bottom: 14px;
+  margin-bottom: 24px;
   margin-top: -10px;
   margin-left: -10px;
 }
@@ -1633,6 +1634,7 @@ button,
 }
 
 .user-card__user-name {
+  width: 100%;
   margin: 0;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1641,7 +1643,7 @@ button,
   -ms-flex-align: center;
   align-items: center;
   font-weight: 700;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 }
 
 .user-card__user-name svg {
@@ -1665,6 +1667,8 @@ button,
 
 .user-card__cash-item:not(:last-of-type) {
   width: 50%;
+  margin: 0;
+  margin-bottom: 16px;
 }
 
 .user-card__cash-item:not(:nth-child(2n)) {
@@ -1672,7 +1676,8 @@ button,
 }
 
 .user-card__cash-item:last-of-type {
-  margin-bottom: 21px;
+  margin: 0;
+  margin-bottom: 20px;
   width: 100%;
 }
 
@@ -1685,6 +1690,7 @@ button,
 }
 
 .user-card__cash-data {
+  font-size: 16px;
   line-height: 20px;
   color: #585858;
 }
@@ -1699,6 +1705,7 @@ button,
   width: 100%;
   min-width: unset;
   margin: 0;
+  font-size: 16px;
 }
 
 .message {

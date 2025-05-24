@@ -10,7 +10,7 @@
   <link rel="preload" href="fonts/exo2-regular.woff2" as="font" crossorigin="anonymous">
   <link rel="preload" href="fonts/exo2-semibold.woff2" as="font" crossorigin="anonymous">
   <link rel="preload" href="fonts/exo2-bold.woff2" as="font" crossorigin="anonymous">
-  <link rel="stylesheet" href="css/style.min.css">
+  <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="leaflet/leaflet.css">
 </head>
 
@@ -632,15 +632,18 @@
       </span>
       <p class="user-card__cash-item">
         <span class="user-card__cash-label">Валюта</span>
-        <span class="user-card__cash-data">KEKS</span>'
+        <span class="user-card__cash-data">KEKS</span>
       </p>
       <p class="user-card__cash-item">
         <span class="user-card__cash-label">Курс</span>
-        <span class="user-card__cash-data">9 999 999 ₽</span>
+        <span class="user-card__cash-data exchange-rate">9 999 999 ₽</span>
       </p>
       <p class="user-card__cash-item">
         <span class="user-card__cash-label">Лимит</span>
-        <span class="user-card__cash-data">9 900 ₽ – 9 900 000 000 ₽</span>
+        <span class="user-card__cash-data">
+          <span class="user-card__min-cashlimit">9 900 ₽ –</span>
+          <span class="user-card__max-cashlimit">9 900 000 000 ₽</span>
+        </span>
       </p>
       <ul class="user-card__badges-list">
         <li class="user-card__badges-item badge">BitTransfer</li>

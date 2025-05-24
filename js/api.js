@@ -11,12 +11,18 @@ const getUserData = (onSuccess, onFail) => {
 
 const getContractorsData = (onSuccess) => {
   fetch('https://cryptostar.grading.htmlacademy.pro/contractors')
-    .then((response) => response.json())
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Ошибка ${response.status} ${response.statusText}`);
+      }
+
+      return response.json();
+    })
     .then((contractorsData) => {
       onSuccess(contractorsData);
     })
-    .catch(() => {
-      console.log('Ошибка!');
+    .catch((error) => {
+      console.error('Ошибка!', error);
     });
 };
 
