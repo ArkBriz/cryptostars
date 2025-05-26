@@ -1,9 +1,6 @@
-
-// добавить функцию для использования шаблона, подставить в эту функцию актуальные данные пользователей
-// отрисовать балуны, передав эту функцию в метод bindPopup
-
 import { map } from "./map.js";
 import { onlyChecked } from "./sorting.js";
+import { formatNumber } from "./util.js";
 
 const markersGroup = L.layerGroup().addTo(map);
 const markerPopupTemplate = document.querySelector('#map-baloon__template')
@@ -40,9 +37,9 @@ const createMarkerPopup = (seller) => {
   };
 
   markerPopup.querySelector('.user-card__user-name span').textContent = userName;
-  markerPopup.querySelector('.exchange-rate').textContent = `${Number(exchangeRate.toFixed(0)).toLocaleString('ru-RU')} ₽`;
-  markerPopup.querySelector('.user-card__min-cashlimit').textContent = `${Number((minAmount * exchangeRate).toFixed(0)).toLocaleString('ru-RU')} ₽ -`;
-  markerPopup.querySelector('.user-card__max-cashlimit').textContent = ` ${Number((balance.amount * exchangeRate).toFixed(0)).toLocaleString('ru-RU')} ₽`;
+  markerPopup.querySelector('.exchange-rate').textContent = `${formatNumber(exchangeRate)} ₽`;
+  markerPopup.querySelector('.user-card__min-cashlimit').textContent = `${formatNumber(minAmount * exchangeRate)} ₽ -`;
+  markerPopup.querySelector('.user-card__max-cashlimit').textContent = ` ${formatNumber(balance.amount * exchangeRate)} ₽`;
 
   paymentMethods.forEach((method) => {
     const sellerBadge = sellerBadgeItem.cloneNode(true);
