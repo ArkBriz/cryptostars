@@ -25,7 +25,7 @@ const icon = L.icon({
 const iconVerified = L.icon({
   iconUrl: './img/pin-verified.svg',
   iconSize: [36, 46],
-  iconAncor: [19, 46],
+  iconAncor: [18, 46],
 });
 
 const createMarkerPopup = (seller) => {
@@ -41,7 +41,7 @@ const createMarkerPopup = (seller) => {
 
   markerPopup.querySelector('.user-card__user-name span').textContent = userName;
   markerPopup.querySelector('.exchange-rate').textContent = `${Number(exchangeRate.toFixed(0)).toLocaleString('ru-RU')} ₽`;
-  markerPopup.querySelector('.user-card__min-cashlimit').textContent = `${Number((minAmount * exchangeRate).toFixed(0)).toLocaleString('ru-RU')} -`;
+  markerPopup.querySelector('.user-card__min-cashlimit').textContent = `${Number((minAmount * exchangeRate).toFixed(0)).toLocaleString('ru-RU')} ₽ -`;
   markerPopup.querySelector('.user-card__max-cashlimit').textContent = ` ${Number((balance.amount * exchangeRate).toFixed(0)).toLocaleString('ru-RU')} ₽`;
 
   paymentMethods.forEach((method) => {
@@ -66,7 +66,7 @@ const showMarkers = () => {
     const { lat, lng } = seller.coords;
     const marker = L.marker(
       { lat, lng },
-      { icon: seller.isVerified ? icon : iconVerified },
+      { icon: seller.isVerified ? iconVerified : icon },
     )
     .bindPopup(createMarkerPopup(seller));
 

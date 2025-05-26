@@ -9,7 +9,7 @@ const createUserItem = (userData) => {
 
   userItem.querySelector('.users-list__user-name').textContent = userName;
   userItem.querySelector('.users-list__table-currency').textContent = balance.currency;
-  userItem.querySelector('.users-list__table-exchangerate').textContent = exchangeRate;
+  userItem.querySelector('.users-list__table-exchangerate').textContent = `${exchangeRate.toFixed(0)} ₽`;
   userItem.querySelector('.users-list__min-cashlimit').textContent = `${minAmount}\u00A0₽\u00A0-`;
   userItem.querySelector('.users-list__max-cashlimit').textContent = `\u00A0${balance.amount}\u00A0₽`;
   userItem.querySelector('.users-list__badges-list').innerHTML = '';
@@ -44,4 +44,4 @@ const renderUsersList = (usersData) => {
   usersList.append(fragment);
 };
 
-export {renderUsersList};
+export { renderUsersList };

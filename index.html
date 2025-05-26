@@ -190,7 +190,6 @@
           <div class="users-nav__tabs">
             <div class="tabs no-transition-global tabs--toggle-buy-sell" data-tabs="parent" data-delay="300">
               <div class="tabs__controls" data-tabs="controls">
-                <!-- При переключении с продавцов на покупателей и обратно нужно выделить активный пункт .is-active -->
                 <button class="tabs__control btn is-active" type="button" data-tabs="control">Купить</button>
                 <button class="tabs__control btn" type="button" data-tabs="control">Продать</button>
               </div>
@@ -207,7 +206,6 @@
 
           <div class="users-nav__tabs">
             <div class="tabs no-transition-global tabs--toggle-list-map" data-tabs="parent" data-delay="300">
-              <!-- При переключении с карты на список и обратно нужно выделить активный пункт .is-active -->
               <div class="tabs__controls" data-tabs="controls">
                 <button class="tabs__control btn is-active" type="button" data-tabs="control" data-view="list">Cписок</button>
                 <button class="tabs__control btn" type="button" data-tabs="control" data-view="map">Карта</button>
@@ -216,7 +214,6 @@
           </div>
         </div>
 
-        <!-- При переключении на карту блок .users-list нужно скрыть. Способ сокрытия подойдёт любой -->
         <div class="users-list">
           <table class="users-list__table tab-item active">
             <thead class="users-list__table-head">
@@ -229,9 +226,7 @@
                 <th class="users-list__table-cell users-list__table-btn"></th>
               </tr>
             </thead>
-            <tbody class="users-list__table-body">
-              <!-- Записи в таблице строятся по шаблону #user-table-row__template -->
-            </tbody>
+            <tbody class="users-list__table-body"></tbody>
           </table>
           </div>
       </div>
@@ -301,7 +296,7 @@
       <div class="modal__content">
         <h2 class="modal__description">Покупка криптовалюты</h2>
         <!-- Не забудьте указать верный action-атрибут -->
-        <form class="modal-buy" method="post">
+        <form class="modal-buy" action="https://cryptostar.grading.htmlacademy.pro/" method="post" enctype="multipart/form-data" autocomplete="off">
           <!--
             Обратите внимание, что всем полям для отправки на сервер нужно указать
             атрибуты name (их список вы найдёте в техзадании), а часть полей
@@ -337,14 +332,15 @@
           <div class="modal__container modal__container--small">
             <div class="modal__input-wrapper modal__input-wrapper--min">
               <div class="custom-input">
-                  <label><span class="custom-input__label">Оплата</span><span
-                          class="custom-input__unit">₽</span>
-                      <button class="btn btn--textblue custom-input__btn" type="button">обменять все
-                      </button>
-                      <input type="number" value="" placeholder="0">
-                  </label>
-                  <!-- Пример стилизации ошибки валидации -->
-                  <div class="custom-input__error">Минимальная сумма — 9 999 999 ₽</div>
+                <label>
+                  <span class="custom-input__label">Оплата</span>
+                  <span class="custom-input__unit">₽</span>
+                  <button class="btn btn--textblue custom-input__btn" type="button">обменять все
+                  </button>
+                  <input type="number" value="" placeholder="0">
+                </label>
+                <!-- Пример стилизации ошибки валидации -->
+                <div class="custom-input__error">Минимальная сумма — 9 999 999 ₽</div>
               </div>
             </div>
 
@@ -365,7 +361,8 @@
 
           <div class="modal__container">
             <div class="modal__select-wrapper">
-              <div class="select"><span>Плaтёжная система</span>
+              <div class="select">
+                <span>Плaтёжная система</span>
                 <!--
                   При отрисовке в списке платёжных систем нужно отразить только те,
                   которые есть у пользователя. Способ - удалить из разметки или добавить disable-атрибут
@@ -381,7 +378,7 @@
               </div>
             </div>
 
-            <div class="modal__input-wrapper modal__input-wrapper--decorated">
+            <div class="modal__input-wrapper modal__input-wrapper--decorated" id="wallet-number">
               <div class="custom-input">
                 <!-- В случае, если выбрана оплата наличными, поле нужно оставить пустым -->
                 <label>
@@ -415,14 +412,16 @@
             <p class="modal__validation-message modal__validation-message--error">
               <svg width="20" height="20" aria-hidden="true">
                 <use xlink:href="#icon-error"></use>
-              </svg>Ошибка заполнения формы
+              </svg>
+              Ошибка заполнения формы
             </p>
 
             <!-- Сообщение, которое нужно показать в случае успешной отправки данных -->
             <p class="modal__validation-message modal__validation-message--success">
               <svg width="20" height="20" aria-hidden="true">
                 <use xlink:href="#icon-success"></use>
-              </svg>Данные успешно отправлены
+              </svg>
+              Данные успешно отправлены
             </p>
           </div>
         </form>
@@ -444,13 +443,14 @@
     Обратите внимание, что при открытии попапа также нужно убрать скролл с body,
     для этого можете использовать класс "scroll-lock"
   -->
+
   <div class="modal modal--sell" style="display: none;">
     <div class="modal__wrapper">
       <div class="modal__overlay" data-close-modal></div>
       <div class="modal__content">
         <h2 class="modal__description">Продажа криптовалюты</h2>
         <!-- Не забудьте указать верный action-атрибут -->
-        <form class="modal-sell" method="post">
+        <form class="modal-sell" action="https://cryptostar.grading.htmlacademy.pro/" method="post" enctype="multipart/form-data" autocomplete="off">
           <!--
             Обратите внимание, что всем полям для отправки на сервер нужно указать
             атрибуты name (их список вы найдёте в техзадании), а часть полей
@@ -562,14 +562,16 @@
             <p class="modal__validation-message modal__validation-message--error">
               <svg width="20" height="20" aria-hidden="true">
                 <use xlink:href="#icon-error"></use>
-              </svg>Ошибка заполнения формы
+              </svg>
+              Ошибка заполнения формы
             </p>
 
             <!-- Сообщение, которое нужно показать в случае успешной отправки данных -->
             <p class="modal__validation-message modal__validation-message--success">
               <svg width="20" height="20" aria-hidden="true">
                 <use xlink:href="#icon-success"></use>
-              </svg>Данные успешно отправлены
+              </svg>
+              Данные успешно отправлены
             </p>
           </div>
         </form>
@@ -584,14 +586,8 @@
   </div>
 
   <template id="user-table-row__template">
-    <!--
-      При клонировании данные нужно заменить на настоящие.
-      Для удобства обращения из JS, вы можете добавить обёрткам id
-      или уникальные классы там, где их нет, а также сами обёрки (используйте <span>)
-    -->
     <tr class="users-list__table-row">
       <td class="users-list__table-cell users-list__table-name">
-        <!-- Обратите внимание, что "звёздочка только" у верифицированных пользователей -->
         <svg width="20" height="20" aria-hidden="true">
           <use xlink:href="#icon-star"></use>
         </svg>
@@ -617,14 +613,8 @@
   </template>
 
   <template id="map-baloon__template">
-    <!--
-      При клонировании данные нужно заменить на настоящие.
-      Для удобства обращения из JS, вы можете добавить обёрткам id
-      или уникальные классы там, где их нет, а также сами обёрки (используйте <span>)
-    -->
     <div class="user-card">
       <span class="user-card__user-name">
-        <!-- Обратите внимание, что "звёздочка только" у верифицированных пользователей -->
         <svg width="20" height="20" aria-hidden="true">
           <use xlink:href="#icon-star"></use>
         </svg>

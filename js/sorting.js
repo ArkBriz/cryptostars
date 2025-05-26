@@ -57,4 +57,4 @@ const initSorting = (data) => {
   sortUsers(currentStatus);
 }
 
-export { initSorting, onlyChecked };
+export { initSorting, onlyChecked, currentStatus };
