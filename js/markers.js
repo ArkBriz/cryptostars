@@ -1,10 +1,13 @@
 import { map } from "./map.js";
 import { onlyChecked } from "./sorting.js";
 import { formatNumber } from "./util.js";
+import { openModal, setUserData } from "./modal.js";
 
 const markersGroup = L.layerGroup().addTo(map);
 const markerPopupTemplate = document.querySelector('#map-baloon__template')
   .content.querySelector('.user-card');
+const modal = document.querySelector('.modal');
+const modalDescription = modal.querySelector('.modal__description');
 
 let users = [];
 
@@ -30,7 +33,10 @@ const createMarkerPopup = (seller) => {
   const markerPopup = markerPopupTemplate.cloneNode(true);
   const sellerBadgesList = markerPopup.querySelector('.user-card__badges-list');
   const sellerBadgeItem = sellerBadgesList.querySelector('.badge');
+  const exchangeBtn = markerPopup.querySelector('.user-card__change-btn');
+
   sellerBadgesList.innerHTML = '';
+  exchangeBtn.dataset.userId = seller.id;
 
   if (!isVerified) {
     markerPopup.querySelector('svg').remove();
@@ -45,6 +51,14 @@ const createMarkerPopup = (seller) => {
     const sellerBadge = sellerBadgeItem.cloneNode(true);
     sellerBadge.textContent = `${method.provider}`;
     sellerBadgesList.append(sellerBadge);
+  });
+
+  exchangeBtn.addEventListener('click', () => {
+    modalDescription.textContent = 'Покупка криптовалюты';
+    document.querySelector('#wallet-number').style.order = '0';
+
+    setUserData(seller);
+    openModal();
   });
 
   return markerPopup;

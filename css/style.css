@@ -219,6 +219,7 @@ button,
 [type="reset"],
 [type="submit"] {
   -webkit-appearance: button;
+          appearance: button;
 }
 
 /**
@@ -323,6 +324,7 @@ textarea {
   outline-offset: -2px;
   /* 2 */
   -webkit-appearance: textfield;
+          appearance: textfield;
   /* 1 */
 }
 
@@ -691,7 +693,7 @@ button,
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 98;
+  z-index: 100;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

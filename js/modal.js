@@ -132,3 +132,5 @@ const onOverlayClick = () => closeModal();
 
 closeModalBtn.addEventListener('click', onCloseBtnClick);
 overlay.addEventListener('click', onOverlayClick);
+
+export { openModal, setUserData };
