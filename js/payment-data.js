@@ -1,6 +1,7 @@
 import { getProfileData } from "./user.js";
 import { currentStatus } from "./sorting.js";
 import { formatNumber } from "./util.js";
+import { setExchangeData } from "./exchange-fields.js";
 
 const modal = document.querySelector('.modal');
 const modalForm = modal.querySelector('.modal-buy');
@@ -64,6 +65,11 @@ const setUserData = (user) => {
   currentSellerPaymentMethods = methods;
 
   walletNumberInput.value = user.wallet?.address || profileData.wallet.address || '';
+
+  const contractorBalance = balance.amount;
+  const rate = exchangeRate;
+  setExchangeData({ rate, contractorBalance });
+  console.log(contractorBalance);
 };
 
 paymentMethodSelect.addEventListener('change', () => {
