@@ -65,11 +65,11 @@ const setUserData = (user) => {
 
   paymentMethodSelect.innerHTML = `<option selected disabled>Выберите платёжную систему</option>`;
 
-  const methods = isBuying ? user.paymentMethods : profileData.paymentMethods;
+  const methods = user.paymentMethods || profileData.paymentMethods || [];
   createPaymentMethods(methods);
   currentSellerPaymentMethods = methods;
 
-  walletNumberInput.value = isBuying ? profileData.wallet.address : user.wallet.address;
+  walletNumberInput.value = user.wallet?.address || profileData.wallet.address || '';
 };
 
 usersList.addEventListener('click', (evt) => {
@@ -133,4 +133,4 @@ const onOverlayClick = () => closeModal();
 closeModalBtn.addEventListener('click', onCloseBtnClick);
 overlay.addEventListener('click', onOverlayClick);
 
-export { openModal, setUserData };
+export { openModal, setUserData, createPaymentMethods };
