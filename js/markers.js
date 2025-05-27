@@ -1,8 +1,8 @@
 import { map } from "./map.js";
 import { onlyChecked } from "./sorting.js";
 import { formatNumber } from "./util.js";
-import { openModal, setUserData } from "./modal.js";
-import { getProfileData } from "./user.js";
+import { openModal } from "./modal.js";
+import { setUserData } from "./payment-data.js";
 
 const markersGroup = L.layerGroup().addTo(map);
 const markerPopupTemplate = document.querySelector('#map-baloon__template')
@@ -10,7 +10,6 @@ const markerPopupTemplate = document.querySelector('#map-baloon__template')
 const modal = document.querySelector('.modal');
 const modalDescription = modal.querySelector('.modal__description');
 const walletNumberBlock = modal.querySelector('#wallet-number');
-const walletNumberInput = walletNumberBlock.querySelector('input');
 
 let users = [];
 
