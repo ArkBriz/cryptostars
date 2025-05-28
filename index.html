@@ -296,12 +296,7 @@
       <div class="modal__content">
         <h2 class="modal__description">Покупка криптовалюты</h2>
         <form class="modal-buy" action="https://cryptostar.grading.htmlacademy.pro/" method="post" enctype="multipart/form-data" autocomplete="off">
-          <!--
-            Обратите внимание, что всем полям для отправки на сервер нужно указать
-            атрибуты name (их список вы найдёте в техзадании), а часть полей
-            вообще отправляется скрытыми
-          -->
-          <input type="hidden" name="type" value="BUY">
+          <input type="hidden" name="type">
           <input type="hidden" name="contractorId">
           <input type="hidden" name="exchangeRate">
           <input type="hidden" name="sendingCurrency">
@@ -364,7 +359,7 @@
 
           <div class="modal__container">
             <div class="modal__select-wrapper">
-              <div class="select">
+              <div class="select custom-input">
                 <span>Плaтёжная система</span>
                 <select id="paymentMethod" name="paymentMethod">
                   <option selected disabled>Выберите платёжную систему</option>
@@ -399,7 +394,7 @@
               <div class="custom-input">
                 <label>
                   <span class="custom-input__label">Платёжный пароль</span>
-                  <input type="password" value="123456" name="paymentPassword" placeholder="Введите пароль">
+                  <input type="password" name="paymentPassword" placeholder="Введите пароль">
                 </label>
               </div>
             </div>
@@ -407,7 +402,7 @@
             <button class="btn btn--green modal__submit" type="submit">Обменять</button>
 
             <!-- Сообщение, которое нужно показать в случае неудачной отправки данных -->
-            <p class="modal__validation-message modal__validation-message--error">
+            <p class="modal__validation-message modal__validation-message--error" style="display: none;">
               <svg width="20" height="20" aria-hidden="true">
                 <use xlink:href="#icon-error"></use>
               </svg>
@@ -415,7 +410,7 @@
             </p>
 
             <!-- Сообщение, которое нужно показать в случае успешной отправки данных -->
-            <p class="modal__validation-message modal__validation-message--success">
+            <p class="modal__validation-message modal__validation-message--success" style="display: none;">
               <svg width="20" height="20" aria-hidden="true">
                 <use xlink:href="#icon-success"></use>
               </svg>
@@ -645,6 +640,7 @@
 
   <script src="./js/main.js" type="module"></script>
   <script src="./leaflet/leaflet.js"></script>
+  <script src="./pristine/pristine.min.js"></script>
 </body>
 
 </html>

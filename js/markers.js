@@ -1,14 +1,16 @@
 import { map } from "./map.js";
 import { onlyChecked } from "./sorting.js";
-import { formatNumber } from "./util.js";
+import { formatNumber, parseNumber, floorToHundredths } from "./util.js";
 import { openModal } from "./modal.js";
 import { setUserData } from "./payment-data.js";
 
 const markersGroup = L.layerGroup().addTo(map);
-const markerPopupTemplate = document.querySelector('#map-baloon__template')
-  .content.querySelector('.user-card');
+const markerPopupTemplate = document.querySelector('#map-baloon__template').content.querySelector('.user-card');
 const modal = document.querySelector('.modal');
+const modalForm = modal.querySelector('.modal-buy');
 const modalDescription = modal.querySelector('.modal__description');
+const sendingField = document.querySelector('[name="sendingAmount"]');
+const recievingField = document.querySelector('[name="receivingAmount"]');
 const walletNumberBlock = modal.querySelector('#wallet-number');
 
 let users = [];
@@ -60,6 +62,11 @@ const createMarkerPopup = (seller) => {
     walletNumberBlock.style.order = '0';
 
     setUserData(seller);
+    modalForm.querySelector('.custom-input__unit--sent').textContent = '₽';
+    modalForm.querySelector('.custom-input__unit--got').textContent = 'KEKS';
+    recievingField.value = floorToHundredths(parseNumber(sendingField.value) / exchangeRate);
+    sendingField.value = Math.ceil(parseNumber(recievingField.value) * exchangeRate);
+
     openModal();
   });
 

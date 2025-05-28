@@ -1,4 +1,4 @@
-import { currentStatus, getUsers } from "./sorting.js";
+import { currentStatus } from "./sorting.js";
 import { getProfileData } from "./user.js";
 import { parseNumber, floorToHundredths } from "./util.js";
 
@@ -8,8 +8,10 @@ const sendAllBtn = sendingField.closest('.custom-input').querySelector('.custom-
 const receiveAllBtn = recievingField.closest('.custom-input').querySelector('.custom-input__btn');
 
 let exchangeRate;
-let profileBalance;
 let userBalance;
+let profileData;
+
+
 
 const countReceiving = () => {
   const sendingValue = parseNumber(sendingField.value);
@@ -32,13 +34,9 @@ const countSending = () => {
 };
 
 const onSendAllClick = () => {
-  if (currentStatus === 'seller') {
-    sendingField.value = getProfileData().balances[0].amount;
-    countReceiving();
-  } else {
-    sendingField.value = getProfileData().balances[1].amount;
-    countReceiving();
-  }
+  const profileBalance = profileData.balances[currentStatus === 'seller' ? 0 : 1].amount;
+  sendingField.value = profileBalance;
+  countReceiving();
 };
 
 const onReceiveAllClick = () => {
@@ -47,14 +45,9 @@ const onReceiveAllClick = () => {
 };
 
 const setExchangeData = ({rate, contractorBalance}) => {
-  exchangeRate = rate.toFixed(0);
+  exchangeRate = Number(rate.toFixed(0));
   userBalance = contractorBalance;
-
-  if (currentStatus === 'seller') {
-    profileBalance = getProfileData().balances[0].amount;
-  } else {
-    profileBalance = getProfileData().balances[1].amount;
-  }
+  profileData = getProfileData();
 };
 
 sendingField.addEventListener('input', countReceiving);

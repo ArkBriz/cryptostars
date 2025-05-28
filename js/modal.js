@@ -3,13 +3,13 @@ import { isEscKey } from "./util.js";
 import { setUserData } from "./payment-data.js";
 
 const usersList = document.querySelector('.users-list__table-body');
-export const modal = document.querySelector('.modal');
-export const modalForm = modal.querySelector('.modal-buy');
+const modal = document.querySelector('.modal');
+const modalForm = modal.querySelector('.modal-buy');
 const modalDescription = modal.querySelector('.modal__description');
 const closeModalBtn = modal.querySelector('.close-btn');
 const overlay = modal.querySelector('.modal__overlay');
 const walletNumberBlock = modal.querySelector('#wallet-number');
-export const body = document.body;
+const body = document.body;
 
 usersList.addEventListener('click', (evt) => {
   const exchangeBtn = evt.target.closest('.btn');

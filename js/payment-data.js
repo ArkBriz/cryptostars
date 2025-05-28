@@ -69,7 +69,6 @@ const setUserData = (user) => {
   const contractorBalance = balance.amount;
   const rate = exchangeRate;
   setExchangeData({ rate, contractorBalance });
-  console.log(contractorBalance);
 };
 
 paymentMethodSelect.addEventListener('change', () => {
