@@ -64,8 +64,6 @@ const createMarkerPopup = (seller) => {
     setUserData(seller);
     modalForm.querySelector('.custom-input__unit--sent').textContent = '₽';
     modalForm.querySelector('.custom-input__unit--got').textContent = 'KEKS';
-    recievingField.value = floorToHundredths(parseNumber(sendingField.value) / exchangeRate);
-    sendingField.value = Math.ceil(parseNumber(recievingField.value) * exchangeRate);
 
     openModal();
   });

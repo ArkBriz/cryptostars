@@ -1,4 +1,4 @@
-import { currentStatus } from "./sorting.js";
+import { isBuying } from "./payment-data.js";
 import { getProfileData } from "./user.js";
 import { parseNumber, floorToHundredths } from "./util.js";
 
@@ -11,12 +11,16 @@ let exchangeRate;
 let userBalance;
 let profileData;
 
-
+const setExchangeData = ({rate, contractorBalance}) => {
+  exchangeRate = Number(rate.toFixed(0));
+  userBalance = contractorBalance;
+  profileData = getProfileData();
+};
 
 const countReceiving = () => {
   const sendingValue = parseNumber(sendingField.value);
 
-  if (currentStatus === 'seller') {
+  if (isBuying) {
     recievingField.value = floorToHundredths(sendingValue / exchangeRate);
   } else {
     recievingField.value = Math.ceil(sendingValue * exchangeRate);
@@ -26,7 +30,7 @@ const countReceiving = () => {
 const countSending = () => {
   const receivingValue = parseNumber(recievingField.value);
 
-  if (currentStatus === 'seller') {
+  if (isBuying) {
     sendingField.value = Math.ceil(receivingValue * exchangeRate);
   } else {
     sendingField.value = floorToHundredths(receivingValue / exchangeRate);
@@ -34,7 +38,7 @@ const countSending = () => {
 };
 
 const onSendAllClick = () => {
-  const profileBalance = profileData.balances[currentStatus === 'seller' ? 0 : 1].amount;
+  const profileBalance = profileData.balances[isBuying ? 0 : 1].amount;
   sendingField.value = profileBalance;
   countReceiving();
 };
@@ -44,15 +48,9 @@ const onReceiveAllClick = () => {
   countSending();
 };
 
-const setExchangeData = ({rate, contractorBalance}) => {
-  exchangeRate = Number(rate.toFixed(0));
-  userBalance = contractorBalance;
-  profileData = getProfileData();
-};
-
 sendingField.addEventListener('input', countReceiving);
 recievingField.addEventListener('input', countSending);
 sendAllBtn.addEventListener('click', onSendAllClick);
 receiveAllBtn.addEventListener('click', onReceiveAllClick);
 
-export { setExchangeData };
+export { setExchangeData, exchangeRate, userBalance, profileData };

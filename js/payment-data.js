@@ -1,5 +1,4 @@
 import { getProfileData } from "./user.js";
-import { currentStatus } from "./sorting.js";
 import { formatNumber } from "./util.js";
 import { setExchangeData } from "./exchange-fields.js";
 
@@ -15,7 +14,9 @@ const walletNumberInput = walletNumberBlock.querySelector('input');
 const paymentMethodSelect = modal.querySelector('#paymentMethod');
 const cardNumberInput = modal.querySelector('#card-number');
 
+let selectedUser;
 let currentSellerPaymentMethods = [];
+let isBuying;
 
 const setCurrencyUnits = (sent, got) => {
   modalForm.querySelector('.custom-input__unit--sent').textContent = sent;
@@ -34,8 +35,9 @@ const createPaymentMethods = (methods) => {
 const setUserData = (user) => {
   const { id, status, userName, exchangeRate, minAmount, balance, isVerified } = user;
   const profileData = getProfileData();
+  selectedUser = user;
 
-  const isBuying = currentStatus === 'seller';
+  isBuying = status === 'seller';
 
   contractorName.textContent = userName;
   userExchangeRate.textContent = `${formatNumber(exchangeRate)} ₽`;
@@ -48,7 +50,7 @@ const setUserData = (user) => {
   setCurrencyUnits(isBuying ? '₽' : 'KEKS', isBuying ? 'KEKS' : '₽');
 
 
-  if (status === 'seller') {
+  if (isBuying) {
     minCashLimit.textContent = `${formatNumber(minAmount * exchangeRate)}\u00A0₽\u00A0-`;
     maxCashLimit.textContent = `\u00A0${formatNumber(balance.amount * exchangeRate)}\u00A0₽`;
   } else {
@@ -83,4 +85,4 @@ paymentMethodSelect.addEventListener('change', () => {
   }
 });
 
-export { setUserData };
+export { setUserData, isBuying, selectedUser };

@@ -1,4 +1,10 @@
+import { profileData } from "./exchange-fields.js";
+import { isBuying, selectedUser } from "./payment-data.js";
+import { parseNumber, formatNumber, floorToHundredths } from "./util.js";
+
 const modalForm = document.querySelector('.modal-buy');
+const sendingField = modalForm.querySelector('[name="sendingAmount"]');
+const receivingField = modalForm.querySelector('[name="receivingAmount"]');
 const paymentMethodSelect = modalForm.querySelector('[name="paymentMethod"]');
 const passwordField = modalForm.querySelector('[name="paymentPassword"]');
 const errorMessage = modalForm.querySelector('.modal__validation-message--error');
@@ -10,6 +16,98 @@ const pristine = new Pristine(modalForm, {
   errorTextTag: 'div',
   errorTextClass: 'custom-input__error'
 });
+
+const getExchangeLimits = (type) => {
+  const { minAmount, exchangeRate, balance } = selectedUser;
+  let contractorMinLimit, contractorMaxLimit, userLimit, currency;
+
+  if (type === 'sending') {
+    contractorMinLimit = isBuying ? minAmount * exchangeRate : minAmount / exchangeRate ;
+    contractorMaxLimit = isBuying ? balance.amount * exchangeRate : balance.amount / exchangeRate;
+    userLimit = isBuying ? profileData.balances[0].amount : profileData.balances[1].amount;
+    currency = isBuying ? '₽' : 'KEKS';
+  } else {
+    contractorMinLimit = isBuying ? minAmount / exchangeRate : minAmount;
+    contractorMaxLimit = isBuying ? balance.amount : balance.amount * exchangeRate;
+    userLimit = isBuying ? profileData.balances[0].amount / exchangeRate : profileData.balances[1].amount * exchangeRate;
+    currency = isBuying ? 'KEKS' : '₽';
+  };
+
+  return {
+    contractorMinLimit,
+    contractorMaxLimit,
+    userLimit,
+    currency
+  }
+};
+
+const validateSendingField = (value) => {
+  const amount = parseNumber(value);
+  const limits = getExchangeLimits('sending');
+  const { contractorMinLimit, contractorMaxLimit, userLimit } = limits;
+
+  if (isNaN(amount) || amount <= 0) {
+    return false;
+  };
+
+  return amount >= contractorMinLimit && amount <= contractorMaxLimit && amount <= userLimit;
+};
+
+const getSendingErrorMessage = (value) => {
+  const amount = parseNumber(value);
+  const limits = getExchangeLimits('sending');
+  const { contractorMinLimit, contractorMaxLimit, userLimit, currency } = limits;
+
+  if (amount > userLimit) {
+    return `Недостаточно средств на счете`;
+  } else if (amount < contractorMinLimit) {
+    return `Минимальная сумма - ${floorToHundredths(contractorMinLimit)} ${currency}`;
+  } else if (amount > contractorMaxLimit) {
+    return `Максимальная сумма - ${floorToHundredths(contractorMaxLimit)} ${currency}`;
+  }
+};
+
+pristine.addValidator(
+  sendingField,
+  validateSendingField,
+  getSendingErrorMessage
+);
+
+const validateReceivingField = (value) => {
+  const amount = parseNumber(value);
+  const limits = getExchangeLimits('receiving');
+  const { contractorMinLimit, contractorMaxLimit, userLimit } = limits;
+
+  if (isNaN(amount) || amount <= 0) {
+    return false;
+  };
+
+  return amount >= contractorMinLimit && amount <= contractorMaxLimit && amount <= userLimit;
+};
+
+const getReceivingErrorMessage = (value) => {
+  const amount = parseNumber(value);
+  const limits = getExchangeLimits('receiving');
+  const { contractorMinLimit, contractorMaxLimit, userLimit, currency } = limits;
+
+  if (amount > userLimit) {
+    return `Недостаточно средств на счете`;
+  };
+
+  if (amount < contractorMinLimit) {
+    return `Минимальная сумма - ${floorToHundredths(contractorMinLimit)} ${currency}`;
+  };
+
+  if (amount > contractorMaxLimit) {
+    return `Максимальная сумма - ${floorToHundredths(contractorMaxLimit)} ${currency}`;
+  };
+};
+
+pristine.addValidator(
+  receivingField,
+  validateReceivingField,
+  getReceivingErrorMessage
+);
 
 const validateSelect = () => paymentMethodSelect.selectedIndex > 0;
 
