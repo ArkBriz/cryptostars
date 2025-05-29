@@ -1,6 +1,7 @@
 import { currentStatus, getUsers } from "./sorting.js";
 import { isEscKey } from "./util.js";
 import { setUserData } from "./payment-data.js";
+import { resetFormValidation } from "./form-validation.js";
 
 const usersList = document.querySelector('.users-list__table-body');
 const modal = document.querySelector('.modal');
@@ -43,7 +44,7 @@ const closeModal = () => {
   modal.style.display = 'none';
   body.classList.remove('scroll-lock');
   modalForm.reset();
-  // pristine.reset();
+  resetFormValidation();
   document.removeEventListener('keydown', onEscKeydown);
 };
 

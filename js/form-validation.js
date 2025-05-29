@@ -1,6 +1,6 @@
 import { profileData } from "./exchange-fields.js";
 import { isBuying, selectedUser } from "./payment-data.js";
-import { parseNumber, formatNumber, floorToHundredths } from "./util.js";
+import { parseNumber, floorToHundredths } from "./util.js";
 
 const modalForm = document.querySelector('.modal-buy');
 const sendingField = modalForm.querySelector('[name="sendingAmount"]');
@@ -138,3 +138,15 @@ modalForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
   }
 });
+
+const hideSubmitStatus = () => {
+  errorMessage.style.display = 'none';
+  successMessage.style.display = 'none';
+};
+
+const resetFormValidation = () => {
+  pristine.reset();
+  hideSubmitStatus();
+};
+
+export { resetFormValidation };
