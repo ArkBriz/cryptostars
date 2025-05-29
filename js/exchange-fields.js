@@ -12,7 +12,7 @@ let userBalance;
 let profileData;
 
 const setExchangeData = ({rate, contractorBalance}) => {
-  exchangeRate = Number(rate.toFixed(0));
+  exchangeRate = Number(rate);
   userBalance = contractorBalance;
   profileData = getProfileData();
 };
@@ -21,9 +21,9 @@ const countReceiving = () => {
   const sendingValue = parseNumber(sendingField.value);
 
   if (isBuying) {
-    recievingField.value = floorToHundredths(sendingValue / exchangeRate);
+    recievingField.value = (sendingValue / exchangeRate);
   } else {
-    recievingField.value = Math.ceil(sendingValue * exchangeRate);
+    recievingField.value = (sendingValue * exchangeRate);
   }
 };
 
@@ -31,9 +31,9 @@ const countSending = () => {
   const receivingValue = parseNumber(recievingField.value);
 
   if (isBuying) {
-    sendingField.value = Math.ceil(receivingValue * exchangeRate);
+    sendingField.value = (receivingValue * exchangeRate);
   } else {
-    sendingField.value = floorToHundredths(receivingValue / exchangeRate);
+    sendingField.value = (receivingValue / exchangeRate);
   }
 };
 
