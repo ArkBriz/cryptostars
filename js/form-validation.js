@@ -43,6 +43,20 @@ const getExchangeLimits = (type) => {
   }
 };
 
+const getAmountErrorMessage = (amount, limits) => {
+  const { contractorMinLimit, contractorMaxLimit, userLimit, currency } = limits;
+
+  if (amount > userLimit) {
+    return `Недостаточно средств на счете`;
+  } else if (amount < contractorMinLimit) {
+    return `Минимальная сумма - ${floorToHundredths(contractorMinLimit)} ${currency}`;
+  } else if (amount > contractorMaxLimit) {
+    return `Максимальная сумма - ${floorToHundredths(contractorMaxLimit)} ${currency}`;
+  };
+
+  return '';
+};
+
 const validateSendingField = (value) => {
   const amount = parseNumber(value);
   const limits = getExchangeLimits('sending');
@@ -58,15 +72,12 @@ const validateSendingField = (value) => {
 const getSendingErrorMessage = (value) => {
   const amount = parseNumber(value);
   const limits = getExchangeLimits('sending');
-  const { contractorMinLimit, contractorMaxLimit, userLimit, currency } = limits;
 
-  if (amount > userLimit) {
-    return `Недостаточно средств на счете`;
-  } else if (amount < contractorMinLimit) {
-    return `Минимальная сумма - ${floorToHundredths(contractorMinLimit)} ${currency}`;
-  } else if (amount > contractorMaxLimit) {
-    return `Максимальная сумма - ${floorToHundredths(contractorMaxLimit)} ${currency}`;
-  }
+  if (isNaN(amount) || amount <= 0) {
+    return `Минимальная сумма - ${floorToHundredths(limits.contractorMinLimit)} ${limits.currency}`;
+  };
+
+  return getAmountErrorMessage(amount, limits);
 };
 
 pristine.addValidator(
@@ -90,19 +101,7 @@ const validateReceivingField = (value) => {
 const getReceivingErrorMessage = (value) => {
   const amount = parseNumber(value);
   const limits = getExchangeLimits('receiving');
-  const { contractorMinLimit, contractorMaxLimit, userLimit, currency } = limits;
-
-  if (amount > userLimit) {
-    return `Недостаточно средств на счете`;
-  };
-
-  if (amount < contractorMinLimit) {
-    return `Минимальная сумма - ${floorToHundredths(contractorMinLimit)} ${currency}`;
-  };
-
-  if (amount > contractorMaxLimit) {
-    return `Максимальная сумма - ${floorToHundredths(contractorMaxLimit)} ${currency}`;
-  };
+  return getAmountErrorMessage(amount, limits);
 };
 
 pristine.addValidator(
@@ -154,6 +153,8 @@ const unblockExchangeBtn = () => {
 const setOnFormSubmit = () => {
   modalForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
+    hideSubmitStatus();
+
     const isValid = pristine.validate();
 
     if (isValid) {
