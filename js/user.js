@@ -14,10 +14,6 @@ const setProfileData = (userData) => {
   userProfileName.textContent = userName;
 };
 
-const hideProfileBlock = () => {
-  profileBlock.style.display = 'none';
-};
-
 const getProfileData = () => profileData;
 
-export { setProfileData, getProfileData, hideProfileBlock };
+export { setProfileData, getProfileData };

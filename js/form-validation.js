@@ -1,12 +1,14 @@
 import { profileData } from "./exchange-fields.js";
 import { isBuying, selectedUser } from "./payment-data.js";
 import { parseNumber, floorToHundredths } from "./util.js";
+import { sendData } from "./api.js";
 
 const modalForm = document.querySelector('.modal-buy');
 const sendingField = modalForm.querySelector('[name="sendingAmount"]');
 const receivingField = modalForm.querySelector('[name="receivingAmount"]');
 const paymentMethodSelect = modalForm.querySelector('[name="paymentMethod"]');
 const passwordField = modalForm.querySelector('[name="paymentPassword"]');
+const exchangeBtn = modalForm.querySelector('.modal__submit');
 const errorMessage = modalForm.querySelector('.modal__validation-message--error');
 const successMessage = modalForm.querySelector('.modal__validation-message--success');
 
@@ -125,19 +127,9 @@ pristine.addValidator(
   'Введите пароль'
 );
 
-const showSubmitStatus = (isValid) => {
-  errorMessage.style.display = isValid ? 'none' : 'flex';
-  successMessage.style.display = isValid ? 'flex' : 'none';
-};
+const showSubmitError = () => errorMessage.style.display = 'flex';
 
-modalForm.addEventListener('submit', (evt) => {
-  const isValid = pristine.validate();
-  showSubmitStatus(isValid);
-
-  if (!isValid) {
-    evt.preventDefault();
-  }
-});
+const showSubmitSuccess = () => successMessage.style.display = 'flex';
 
 const hideSubmitStatus = () => {
   errorMessage.style.display = 'none';
@@ -149,4 +141,40 @@ const resetFormValidation = () => {
   hideSubmitStatus();
 };
 
-export { resetFormValidation };
+const blockExchangeBtn = () => {
+  exchangeBtn.disabled = true;
+  exchangeBtn.textContent = 'Обмениваю...';
+};
+
+const unblockExchangeBtn = () => {
+  exchangeBtn.disabled = false;
+  exchangeBtn.textContent = 'Обменять';
+};
+
+const setOnFormSubmit = () => {
+  modalForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    const isValid = pristine.validate();
+
+    if (isValid) {
+      blockExchangeBtn();
+      sendData(
+        () => {
+          hideSubmitStatus();
+          showSubmitSuccess();
+          unblockExchangeBtn();
+        },
+        () => {
+          hideSubmitStatus();
+          showSubmitError();
+          unblockExchangeBtn();
+        },
+        new FormData(modalForm)
+      )
+    } else {
+      showSubmitError();
+    }
+  });
+};
+
+export { setOnFormSubmit, resetFormValidation };
