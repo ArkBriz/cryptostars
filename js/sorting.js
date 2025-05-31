@@ -4,20 +4,28 @@ import { updateMarkers } from './markers.js';
 const sortingTabsBlock = document.querySelector('.tabs--toggle-buy-sell');
 const tabButtons = sortingTabsBlock.querySelectorAll('button[data-tabs="control"]');
 const checkbox = document.querySelector('#checked-users');
+const noResultsBlock = document.querySelector('#no-results');
 
 let users = [];
 let currentStatus = 'seller';
 let onlyChecked = false;
 
 const updateUserList = () => {
-  let sortedUsers = users.filter((user) => user.status === currentStatus);
+  const isListViewActive = document.querySelector('[data-view="list"]').classList.contains('is-active');
 
+  let sortedUsers = users.filter((user) => user.status === currentStatus);
   if (onlyChecked) {
     sortedUsers = sortedUsers.filter((user) => user.isVerified);
   };
 
   renderUsersList(sortedUsers);
-}
+
+  if (sortedUsers.length === 0 && isListViewActive) {
+    noResultsBlock.style.display = 'block';
+  } else {
+    noResultsBlock.style.display = 'none';
+  }
+};
 
 const sortUsers = (userStatus) => {
   currentStatus = userStatus;
@@ -59,4 +67,10 @@ const initSorting = (data) => {
 
 const getUsers = () => users;
 
-export { initSorting, onlyChecked, currentStatus, getUsers };
+export {
+  initSorting,
+  updateUserList,
+  onlyChecked,
+  currentStatus,
+  getUsers
+};

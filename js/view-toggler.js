@@ -1,7 +1,9 @@
 import { map } from "./map.js";
+import { updateUserList } from "./sorting.js";
 
 const togglersBlock = document.querySelector('.tabs--toggle-list-map');
 const togglers = togglersBlock.querySelectorAll('button[data-tabs="control"]');
+const noResultsBlock = document.querySelector('#no-results');
 
 const views = {
   list: document.querySelector('.users-list'),
@@ -20,7 +22,10 @@ const toggleView = (view) => {
   };
 
   if (view === 'map') {
+    noResultsBlock.style.display = 'none';
     setTimeout(() => map.invalidateSize(), 0);
+  } else {
+    updateUserList();
   }
 };
 

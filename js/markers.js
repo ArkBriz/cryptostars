@@ -1,6 +1,6 @@
 import { map } from "./map.js";
 import { onlyChecked } from "./sorting.js";
-import { formatNumber, parseNumber, floorToHundredths } from "./util.js";
+import { formatNumber } from "./util.js";
 import { openModal } from "./modal.js";
 import { setUserData } from "./payment-data.js";
 
@@ -9,8 +9,6 @@ const markerPopupTemplate = document.querySelector('#map-baloon__template').cont
 const modal = document.querySelector('.modal');
 const modalForm = modal.querySelector('.modal-buy');
 const modalDescription = modal.querySelector('.modal__description');
-const sendingField = document.querySelector('[name="sendingAmount"]');
-const recievingField = document.querySelector('[name="receivingAmount"]');
 const walletNumberBlock = modal.querySelector('#wallet-number');
 
 let users = [];
@@ -73,6 +71,8 @@ const createMarkerPopup = (seller) => {
 
 const showMarkers = () => {
   markersGroup.clearLayers();
+
+  if (users.length === 0) return;
 
   const cashSellers = users.filter((user) =>
     user.status === 'seller' &&
