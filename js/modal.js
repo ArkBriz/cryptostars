@@ -1,4 +1,4 @@
-import { currentStatus, getUsers } from './sorting.js';
+import { getCurrentStatus, getUsers } from './sorting.js';
 import { isEscKey } from './util.js';
 import { setUserData } from './payment-data.js';
 import { resetFormValidation } from './form-validation.js';
@@ -36,10 +36,10 @@ usersList.addEventListener('click', (evt) => {
   const userId = exchangeBtn.dataset.userId;
   const selectedUser = getUsers().find((user) => user.id === userId);
 
-  if (currentStatus === 'buyer') {
+  if (getCurrentStatus() === 'buyer') {
     modalDescription.textContent = 'Продажа криптовалюты';
     walletNumberBlock.style.order = '-1';
-  } else if (currentStatus === 'seller') {
+  } else if (getCurrentStatus() === 'seller') {
     modalDescription.textContent = 'Покупка криптовалюты';
     walletNumberBlock.style.order = '0';
   }

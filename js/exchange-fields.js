@@ -1,6 +1,6 @@
-import { isBuying } from './payment-data.js';
-import { getProfileData } from './user.js';
+import { isBuyingMode } from './payment-data.js';
 import { parseNumber } from './util.js';
+import { getProfileData } from './user.js';
 
 const sendingField = document.querySelector('[name="sendingAmount"]');
 const recievingField = document.querySelector('[name="receivingAmount"]');
@@ -9,18 +9,16 @@ const receiveAllBtn = recievingField.closest('.custom-input').querySelector('.cu
 
 let exchangeRate;
 let userBalance;
-let profileData;
 
 const setExchangeData = ({rate, contractorBalance}) => {
   exchangeRate = Number(rate);
   userBalance = contractorBalance;
-  profileData = getProfileData();
 };
 
 const countReceiving = () => {
   const sendingValue = parseNumber(sendingField.value);
 
-  if (isBuying) {
+  if (isBuyingMode()) {
     recievingField.value = (sendingValue / exchangeRate);
   } else {
     recievingField.value = (sendingValue * exchangeRate);
@@ -30,7 +28,7 @@ const countReceiving = () => {
 const countSending = () => {
   const receivingValue = parseNumber(recievingField.value);
 
-  if (isBuying) {
+  if (isBuyingMode()) {
     sendingField.value = (receivingValue * exchangeRate);
   } else {
     sendingField.value = (receivingValue / exchangeRate);
@@ -38,7 +36,7 @@ const countSending = () => {
 };
 
 const onSendAllClick = () => {
-  const profileBalance = profileData.balances[isBuying ? 0 : 1].amount;
+  const profileBalance = getProfileData().balances[isBuyingMode() ? 0 : 1].amount;
   sendingField.value = profileBalance;
   countReceiving();
 };
@@ -53,4 +51,4 @@ recievingField.addEventListener('input', countSending);
 sendAllBtn.addEventListener('click', onSendAllClick);
 receiveAllBtn.addEventListener('click', onReceiveAllClick);
 
-export { setExchangeData, exchangeRate, userBalance, profileData };
+export { setExchangeData };

@@ -85,4 +85,7 @@ paymentMethodSelect.addEventListener('change', () => {
   }
 });
 
-export { setUserData, isBuying, selectedUser };
+const getSelectedUser = () => selectedUser;
+const isBuyingMode = () => isBuying;
+
+export { setUserData, isBuyingMode, getSelectedUser };

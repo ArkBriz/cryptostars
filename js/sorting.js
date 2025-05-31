@@ -67,10 +67,14 @@ const initSorting = (data) => {
 
 const getUsers = () => users;
 
+const getCurrentStatus = () => currentStatus;
+
+const getOnlyCheckedStatus = () => onlyChecked;
+
 export {
   initSorting,
   updateUserList,
-  onlyChecked,
-  currentStatus,
+  getOnlyCheckedStatus,
+  getCurrentStatus,
   getUsers
 };

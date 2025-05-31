@@ -1,5 +1,5 @@
 import { map } from './map.js';
-import { onlyChecked } from './sorting.js';
+import { getOnlyCheckedStatus } from './sorting.js';
 import { formatNumber } from './util.js';
 import { openModal } from './modal.js';
 import { setUserData } from './payment-data.js';
@@ -74,7 +74,7 @@ const showMarkers = () => {
   const cashSellers = users.filter((user) =>
     user.status === 'seller' &&
     user.paymentMethods.some((method) => method.provider === 'Cash in person' &&
-      (!onlyChecked || user.isVerified))
+      (!getOnlyCheckedStatus() || user.isVerified))
   );
 
   cashSellers.forEach((seller) => {

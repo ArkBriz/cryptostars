@@ -1,5 +1,5 @@
-import { profileData } from './exchange-fields.js';
-import { isBuying, selectedUser } from './payment-data.js';
+import { getProfileData } from './user.js';
+import { isBuyingMode, getSelectedUser } from './payment-data.js';
 import { parseNumber, floorToHundredths } from './util.js';
 import { sendData } from './api.js';
 
@@ -20,19 +20,19 @@ const pristine = new Pristine(modalForm, {
 });
 
 const getExchangeLimits = (type) => {
-  const { minAmount, exchangeRate, balance } = selectedUser;
+  const { minAmount, exchangeRate, balance } = getSelectedUser();
   let contractorMinLimit, contractorMaxLimit, userLimit, currency;
 
   if (type === 'sending') {
-    contractorMinLimit = isBuying ? minAmount * exchangeRate : minAmount / exchangeRate ;
-    contractorMaxLimit = isBuying ? balance.amount * exchangeRate : balance.amount / exchangeRate;
-    userLimit = isBuying ? profileData.balances[0].amount : profileData.balances[1].amount;
-    currency = isBuying ? '₽' : 'KEKS';
+    contractorMinLimit = isBuyingMode() ? minAmount * exchangeRate : minAmount / exchangeRate ;
+    contractorMaxLimit = isBuyingMode() ? balance.amount * exchangeRate : balance.amount / exchangeRate;
+    userLimit = isBuyingMode() ? getProfileData().balances[0].amount : getProfileData().balances[1].amount;
+    currency = isBuyingMode() ? '₽' : 'KEKS';
   } else {
-    contractorMinLimit = isBuying ? minAmount / exchangeRate : minAmount;
-    contractorMaxLimit = isBuying ? balance.amount : balance.amount * exchangeRate;
-    userLimit = isBuying ? profileData.balances[0].amount / exchangeRate : profileData.balances[1].amount * exchangeRate;
-    currency = isBuying ? 'KEKS' : '₽';
+    contractorMinLimit = isBuyingMode() ? minAmount / exchangeRate : minAmount;
+    contractorMaxLimit = isBuyingMode() ? balance.amount : balance.amount * exchangeRate;
+    userLimit = isBuyingMode() ? getProfileData().balances[0].amount / exchangeRate : getProfileData().balances[1].amount * exchangeRate;
+    currency = isBuyingMode() ? 'KEKS' : '₽';
   }
 
   return {
