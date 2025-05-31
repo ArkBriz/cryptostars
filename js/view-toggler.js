@@ -1,5 +1,5 @@
-import { map } from "./map.js";
-import { updateUserList } from "./sorting.js";
+import { map } from './map.js';
+import { updateUserList } from './sorting.js';
 
 const togglersBlock = document.querySelector('.tabs--toggle-list-map');
 const togglers = togglersBlock.querySelectorAll('button[data-tabs="control"]');
@@ -19,7 +19,7 @@ const toggleView = (view) => {
     if (elem) {
       elem.style.display = key === view ? '' : 'none';
     }
-  };
+  }
 
   if (view === 'map') {
     noResultsBlock.style.display = 'none';
@@ -33,7 +33,7 @@ togglersBlock.addEventListener('click', (evt) => {
   const clickedToggler = evt.target.closest('button[data-tabs="control"]');
   if (!clickedToggler) {
     return;
-  };
+  }
 
   const view = clickedToggler.dataset.view;
   toggleView(view);

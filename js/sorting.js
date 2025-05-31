@@ -1,4 +1,4 @@
-import { renderUsersList } from "./users-list.js";
+import { renderUsersList } from './users-list.js';
 import { updateMarkers } from './markers.js';
 
 const sortingTabsBlock = document.querySelector('.tabs--toggle-buy-sell');
@@ -16,7 +16,7 @@ const updateUserList = () => {
   let sortedUsers = users.filter((user) => user.status === currentStatus);
   if (onlyChecked) {
     sortedUsers = sortedUsers.filter((user) => user.isVerified);
-  };
+  }
 
   renderUsersList(sortedUsers);
 
@@ -39,7 +39,7 @@ const sortUsers = (userStatus) => {
       (userStatus === 'seller' && isBuyTab) ||
       (userStatus === 'buyer' && isSellTab);
 
-      tabButton.classList.toggle('is-active', isActive);
+    tabButton.classList.toggle('is-active', isActive);
   });
 
   updateUserList();
@@ -63,7 +63,7 @@ const initSorting = (data) => {
   });
 
   sortUsers(currentStatus);
-}
+};
 
 const getUsers = () => users;
 

@@ -1,6 +1,6 @@
-import { getProfileData } from "./user.js";
-import { formatNumber } from "./util.js";
-import { setExchangeData } from "./exchange-fields.js";
+import { getProfileData } from './user.js';
+import { formatNumber } from './util.js';
+import { setExchangeData } from './exchange-fields.js';
 
 const modal = document.querySelector('.modal');
 const modalForm = modal.querySelector('.modal-buy');
@@ -29,7 +29,7 @@ const createPaymentMethods = (methods) => {
     option.value = method.provider;
     option.textContent = method.provider;
     paymentMethodSelect.appendChild(option);
-  })
+  });
 };
 
 const setUserData = (user) => {
@@ -56,17 +56,17 @@ const setUserData = (user) => {
   } else {
     minCashLimit.textContent = `${formatNumber(minAmount)}\u00A0₽\u00A0-`;
     maxCashLimit.textContent = `\u00A0${formatNumber(balance.amount)}\u00A0₽`;
-  };
+  }
 
   verifiedMark.style.display = !isVerified ? 'none' : '';
 
-  paymentMethodSelect.innerHTML = `<option selected disabled>Выберите платёжную систему</option>`;
+  paymentMethodSelect.innerHTML = '<option selected disabled>Выберите платёжную систему</option>';
 
   const methods = user.paymentMethods || profileData.paymentMethods || [];
   createPaymentMethods(methods);
   currentSellerPaymentMethods = methods;
 
-  walletNumberInput.value = user.wallet?.address || profileData.wallet.address || '';
+  walletNumberInput.value = (user.wallet && user.wallet.address) || profileData.wallet.address || '';
 
   const contractorBalance = balance.amount;
   const rate = exchangeRate;

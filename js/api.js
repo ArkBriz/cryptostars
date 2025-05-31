@@ -9,8 +9,7 @@ const getUserData = (onSuccess, onFail) => {
     .then((userData) => {
       onSuccess(userData);
     })
-    .catch((error) => {
-      console.error('Ошибка!', error);
+    .catch(() => {
       onFail();
     });
 };
@@ -26,8 +25,7 @@ const getContractorsData = (onSuccess, onFail) => {
     .then((contractorsData) => {
       onSuccess(contractorsData);
     })
-    .catch((error) => {
-      console.error('Ошибка!', error);
+    .catch(() => {
       onFail();
     });
 };
@@ -45,8 +43,7 @@ const sendData = (onSuccess, onFail, body) => (
     } else {
       onFail();
     }
-  }).catch((error) => {
-    console.error('Ошибка!', error);
+  }).catch(() => {
     onFail();
   })
 );

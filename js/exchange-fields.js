@@ -1,6 +1,6 @@
-import { isBuying } from "./payment-data.js";
-import { getProfileData } from "./user.js";
-import { parseNumber, floorToHundredths } from "./util.js";
+import { isBuying } from './payment-data.js';
+import { getProfileData } from './user.js';
+import { parseNumber } from './util.js';
 
 const sendingField = document.querySelector('[name="sendingAmount"]');
 const recievingField = document.querySelector('[name="receivingAmount"]');

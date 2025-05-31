@@ -1,7 +1,7 @@
-import { currentStatus, getUsers } from "./sorting.js";
-import { isEscKey } from "./util.js";
-import { setUserData } from "./payment-data.js";
-import { resetFormValidation } from "./form-validation.js";
+import { currentStatus, getUsers } from './sorting.js';
+import { isEscKey } from './util.js';
+import { setUserData } from './payment-data.js';
+import { resetFormValidation } from './form-validation.js';
 
 const usersList = document.querySelector('.users-list__table-body');
 const modal = document.querySelector('.modal');
@@ -12,12 +12,26 @@ const overlay = modal.querySelector('.modal__overlay');
 const walletNumberBlock = modal.querySelector('#wallet-number');
 const body = document.body;
 
+const openModal = () => {
+  modal.style.display = '';
+  body.classList.add('scroll-lock');
+  document.addEventListener('keydown', onEscKeydown);
+};
+
+const closeModal = () => {
+  modal.style.display = 'none';
+  body.classList.remove('scroll-lock');
+  modalForm.reset();
+  resetFormValidation();
+  document.removeEventListener('keydown', onEscKeydown);
+};
+
 usersList.addEventListener('click', (evt) => {
   const exchangeBtn = evt.target.closest('.btn');
 
   if (!exchangeBtn) {
     return;
-  };
+  }
 
   const userId = exchangeBtn.dataset.userId;
   const selectedUser = getUsers().find((user) => user.id === userId);
@@ -28,32 +42,18 @@ usersList.addEventListener('click', (evt) => {
   } else if (currentStatus === 'seller') {
     modalDescription.textContent = 'Покупка криптовалюты';
     walletNumberBlock.style.order = '0';
-  };
+  }
 
   setUserData(selectedUser);
   openModal();
 });
-
-const openModal = () => {
-  modal.style.display = '';
-  body.classList.add('scroll-lock');
-  document.addEventListener('keydown', onEscKeydown);
-}
-
-const closeModal = () => {
-  modal.style.display = 'none';
-  body.classList.remove('scroll-lock');
-  modalForm.reset();
-  resetFormValidation();
-  document.removeEventListener('keydown', onEscKeydown);
-};
 
 function onEscKeydown (evt) {
   if (isEscKey(evt)) {
     evt.preventDefault();
     closeModal();
   }
-};
+}
 
 const onCloseBtnClick = () => closeModal();
 const onOverlayClick = () => closeModal();

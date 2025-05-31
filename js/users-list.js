@@ -1,4 +1,4 @@
-import { formatNumber } from "./util.js";
+import { formatNumber } from './util.js';
 
 const usersList = document.querySelector('.users-list__table-body');
 const userItemTemplate = document.querySelector('#user-table-row__template').content;
@@ -19,9 +19,9 @@ const createUserItem = (userData) => {
 
   if (!isVerified) {
     userItem.querySelector('.users-list__table-name svg').remove();
-  };
+  }
 
-  if (status === "seller") {
+  if (status === 'seller') {
     const {paymentMethods} = userData;
     userItem.querySelector('.users-list__min-cashlimit').textContent = `${formatNumber(minAmount * exchangeRate)}\u00A0₽\u00A0-`;
     userItem.querySelector('.users-list__max-cashlimit').textContent = `\u00A0${formatNumber(balance.amount * exchangeRate)}\u00A0₽`;
@@ -31,7 +31,7 @@ const createUserItem = (userData) => {
       userBadge.textContent = `${method.provider}`;
       userBadgesList.append(userBadge);
     });
-  };
+  }
 
   exchangeBtn.dataset.userId = id;
 

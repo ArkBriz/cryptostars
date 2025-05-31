@@ -1,8 +1,8 @@
-import { map } from "./map.js";
-import { onlyChecked } from "./sorting.js";
-import { formatNumber } from "./util.js";
-import { openModal } from "./modal.js";
-import { setUserData } from "./payment-data.js";
+import { map } from './map.js';
+import { onlyChecked } from './sorting.js';
+import { formatNumber } from './util.js';
+import { openModal } from './modal.js';
+import { setUserData } from './payment-data.js';
 
 const markersGroup = L.layerGroup().addTo(map);
 const markerPopupTemplate = document.querySelector('#map-baloon__template').content.querySelector('.user-card');
@@ -12,11 +12,6 @@ const modalDescription = modal.querySelector('.modal__description');
 const walletNumberBlock = modal.querySelector('#wallet-number');
 
 let users = [];
-
-const getUsers = (data) => {
-  users = [...data];
-  showMarkers();
-};
 
 const icon = L.icon({
   iconUrl: './img/pin.svg',
@@ -42,7 +37,7 @@ const createMarkerPopup = (seller) => {
 
   if (!isVerified) {
     markerPopup.querySelector('svg').remove();
-  };
+  }
 
   markerPopup.querySelector('.user-card__user-name span').textContent = userName;
   markerPopup.querySelector('.exchange-rate').textContent = `${formatNumber(exchangeRate)} ₽`;
@@ -72,7 +67,9 @@ const createMarkerPopup = (seller) => {
 const showMarkers = () => {
   markersGroup.clearLayers();
 
-  if (users.length === 0) return;
+  if (users.length === 0) {
+    return;
+  }
 
   const cashSellers = users.filter((user) =>
     user.status === 'seller' &&
@@ -85,11 +82,15 @@ const showMarkers = () => {
     const marker = L.marker(
       { lat, lng },
       { icon: seller.isVerified ? iconVerified : icon },
-    )
-    .bindPopup(createMarkerPopup(seller));
+    ).bindPopup(createMarkerPopup(seller));
 
     markersGroup.addLayer(marker);
-  })
+  });
+};
+
+const getUsers = (data) => {
+  users = [...data];
+  showMarkers();
 };
 
 const updateMarkers = () => {

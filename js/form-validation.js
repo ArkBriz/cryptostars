@@ -1,7 +1,7 @@
-import { profileData } from "./exchange-fields.js";
-import { isBuying, selectedUser } from "./payment-data.js";
-import { parseNumber, floorToHundredths } from "./util.js";
-import { sendData } from "./api.js";
+import { profileData } from './exchange-fields.js';
+import { isBuying, selectedUser } from './payment-data.js';
+import { parseNumber, floorToHundredths } from './util.js';
+import { sendData } from './api.js';
 
 const modalForm = document.querySelector('.modal-buy');
 const sendingField = modalForm.querySelector('[name="sendingAmount"]');
@@ -33,26 +33,26 @@ const getExchangeLimits = (type) => {
     contractorMaxLimit = isBuying ? balance.amount : balance.amount * exchangeRate;
     userLimit = isBuying ? profileData.balances[0].amount / exchangeRate : profileData.balances[1].amount * exchangeRate;
     currency = isBuying ? 'KEKS' : '₽';
-  };
+  }
 
   return {
     contractorMinLimit,
     contractorMaxLimit,
     userLimit,
     currency
-  }
+  };
 };
 
 const getAmountErrorMessage = (amount, limits) => {
   const { contractorMinLimit, contractorMaxLimit, userLimit, currency } = limits;
 
   if (amount > userLimit) {
-    return `Недостаточно средств на счете`;
+    return 'Недостаточно средств на счете';
   } else if (amount < contractorMinLimit) {
     return `Минимальная сумма - ${floorToHundredths(contractorMinLimit)} ${currency}`;
   } else if (amount > contractorMaxLimit) {
     return `Максимальная сумма - ${floorToHundredths(contractorMaxLimit)} ${currency}`;
-  };
+  }
 
   return '';
 };
@@ -64,7 +64,7 @@ const validateSendingField = (value) => {
 
   if (isNaN(amount) || amount <= 0) {
     return false;
-  };
+  }
 
   return amount >= contractorMinLimit && amount <= contractorMaxLimit && amount <= userLimit;
 };
@@ -75,7 +75,7 @@ const getSendingErrorMessage = (value) => {
 
   if (isNaN(amount) || amount <= 0) {
     return `Минимальная сумма - ${floorToHundredths(limits.contractorMinLimit)} ${limits.currency}`;
-  };
+  }
 
   return getAmountErrorMessage(amount, limits);
 };
@@ -93,7 +93,7 @@ const validateReceivingField = (value) => {
 
   if (isNaN(amount) || amount <= 0) {
     return false;
-  };
+  }
 
   return amount >= contractorMinLimit && amount <= contractorMaxLimit && amount <= userLimit;
 };
@@ -126,9 +126,13 @@ pristine.addValidator(
   'Введите пароль'
 );
 
-const showSubmitError = () => errorMessage.style.display = 'flex';
+const showSubmitError = () => {
+  errorMessage.style.display = 'flex';
+};
 
-const showSubmitSuccess = () => successMessage.style.display = 'flex';
+const showSubmitSuccess = () => {
+  successMessage.style.display = 'flex';
+};
 
 const hideSubmitStatus = () => {
   errorMessage.style.display = 'none';
@@ -171,7 +175,7 @@ const setOnFormSubmit = () => {
           unblockExchangeBtn();
         },
         new FormData(modalForm)
-      )
+      );
     } else {
       showSubmitError();
     }
