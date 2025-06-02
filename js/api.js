@@ -1,5 +1,9 @@
+const API_USER_URL = 'https://cryptostar.grading.htmlacademy.pro/user';
+const API_CONTRACTORS_URL = 'https://cryptostar.grading.htmlacademy.pro/contractors';
+const API_SUBMIT_URL = 'https://cryptostar.grading.htmlacademy.pro/';
+
 const getUserData = (onSuccess, onFail) => {
-  fetch('https://cryptostar.grading.htmlacademy.pro/user')
+  fetch(API_USER_URL)
     .then((response) => {
       if (!response.ok) {
         throw new Error(`Ошибка ${response.status} ${response.statusText}`);
@@ -15,7 +19,7 @@ const getUserData = (onSuccess, onFail) => {
 };
 
 const getContractorsData = (onSuccess, onFail) => {
-  fetch('https://cryptostar.grading.htmlacademy.pro/contractors')
+  fetch(API_CONTRACTORS_URL)
     .then((response) => {
       if (!response.ok) {
         throw new Error(`Ошибка ${response.status} ${response.statusText}`);
@@ -32,7 +36,7 @@ const getContractorsData = (onSuccess, onFail) => {
 
 const sendData = (onSuccess, onFail, body) => (
   fetch(
-    'https://cryptostar.grading.htmlacademy.pro/',
+    API_SUBMIT_URL,
     {
       method: 'POST',
       body

@@ -2,7 +2,7 @@ import { map } from './map.js';
 import { getOnlyCheckedStatus } from './sorting.js';
 import { formatNumber } from './util.js';
 import { openModal } from './modal.js';
-import { setUserData } from './payment-data.js';
+import { setUserData, Currency } from './payment-data.js';
 
 const markersGroup = L.layerGroup().addTo(map);
 const markerPopupTemplate = document.querySelector('#map-baloon__template').content.querySelector('.user-card');
@@ -40,9 +40,9 @@ const createMarkerPopup = (seller) => {
   }
 
   markerPopup.querySelector('.user-card__user-name span').textContent = userName;
-  markerPopup.querySelector('.exchange-rate').textContent = `${formatNumber(exchangeRate)} ₽`;
-  markerPopup.querySelector('.user-card__min-cashlimit').textContent = `${formatNumber(minAmount * exchangeRate)} ₽ -`;
-  markerPopup.querySelector('.user-card__max-cashlimit').textContent = ` ${formatNumber(balance.amount * exchangeRate)} ₽`;
+  markerPopup.querySelector('.exchange-rate').textContent = `${formatNumber(exchangeRate)} ${Currency.FIAT_SYMBOL}`;
+  markerPopup.querySelector('.user-card__min-cashlimit').textContent = `${formatNumber(minAmount * exchangeRate)} ${Currency.FIAT_SYMBOL} -`;
+  markerPopup.querySelector('.user-card__max-cashlimit').textContent = ` ${formatNumber(balance.amount * exchangeRate)} ${Currency.FIAT_SYMBOL}`;
 
   paymentMethods.forEach((method) => {
     const sellerBadge = sellerBadgeItem.cloneNode(true);
@@ -55,8 +55,8 @@ const createMarkerPopup = (seller) => {
     walletNumberBlock.style.order = '0';
 
     setUserData(seller);
-    modalForm.querySelector('.custom-input__unit--sent').textContent = '₽';
-    modalForm.querySelector('.custom-input__unit--got').textContent = 'KEKS';
+    modalForm.querySelector('.custom-input__unit--sent').textContent = Currency.FIAT_SYMBOL;
+    modalForm.querySelector('.custom-input__unit--got').textContent = Currency.CRYPTO;
 
     openModal();
   });

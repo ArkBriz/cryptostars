@@ -12,8 +12,23 @@ const overlay = modal.querySelector('.modal__overlay');
 const walletNumberBlock = modal.querySelector('#wallet-number');
 const body = document.body;
 
-const onCloseBtnClick = () => closeModal();
-const onOverlayClick = () => closeModal();
+const modalSettings = {
+  buyer: {
+    description: 'Продажа криптовалюты',
+    order: '-1',
+  },
+  seller: {
+    description: 'Покупка криптовалюты',
+    order: '0',
+  }
+};
+
+const setModalDescription = (mode) => {
+  const settings = modalSettings[mode];
+
+  modalDescription.textContent = settings.description;
+  walletNumberBlock.style.order = settings.order;
+};
 
 const openModal = () => {
   modal.style.display = '';
@@ -45,13 +60,8 @@ usersList.addEventListener('click', (evt) => {
   const userId = exchangeBtn.dataset.userId;
   const selectedUser = getUsers().find((user) => user.id === userId);
 
-  if (getCurrentStatus() === 'buyer') {
-    modalDescription.textContent = 'Продажа криптовалюты';
-    walletNumberBlock.style.order = '-1';
-  } else if (getCurrentStatus() === 'seller') {
-    modalDescription.textContent = 'Покупка криптовалюты';
-    walletNumberBlock.style.order = '0';
-  }
+  const currentStatus = getCurrentStatus();
+  setModalDescription(currentStatus);
 
   setUserData(selectedUser);
   openModal();
@@ -62,6 +72,14 @@ function onEscKeydown (evt) {
     evt.preventDefault();
     closeModal();
   }
+}
+
+function onCloseBtnClick () {
+  closeModal();
+}
+
+function onOverlayClick () {
+  closeModal();
 }
 
 export { openModal };

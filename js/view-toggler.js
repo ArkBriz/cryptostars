@@ -10,7 +10,7 @@ const views = {
   map: document.querySelector('.map-container'),
 };
 
-const DELAY = togglersBlock.dataset.delay;
+const DELAY = Number(togglersBlock.dataset.delay);
 
 const toggleView = (view) => {
   togglers.forEach((toggler) => {

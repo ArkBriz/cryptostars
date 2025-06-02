@@ -1,6 +1,6 @@
 import { isBuyingMode } from './payment-data.js';
 import { parseNumber } from './util.js';
-import { getProfileData } from './user.js';
+import { getProfileData, BalanceType } from './user.js';
 
 const sendingField = document.querySelector('[name="sendingAmount"]');
 const recievingField = document.querySelector('[name="receivingAmount"]');
@@ -36,7 +36,7 @@ const countSending = () => {
 };
 
 const onSendAllClick = () => {
-  const profileBalance = getProfileData().balances[isBuyingMode() ? 0 : 1].amount;
+  const profileBalance = getProfileData().balances[isBuyingMode() ? BalanceType.FIAT : BalanceType.CRYPTO].amount;
   sendingField.value = profileBalance;
   countReceiving();
 };

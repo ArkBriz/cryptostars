@@ -1,5 +1,5 @@
-import { getProfileData } from './user.js';
-import { isBuyingMode, getSelectedUser } from './payment-data.js';
+import { getProfileData, BalanceType } from './user.js';
+import { isBuyingMode, getSelectedUser, Currency } from './payment-data.js';
 import { parseNumber, floorToHundredths } from './util.js';
 import { sendData } from './api.js';
 
@@ -26,13 +26,13 @@ const getExchangeLimits = (type) => {
   if (type === 'sending') {
     contractorMinLimit = isBuyingMode() ? minAmount * exchangeRate : minAmount / exchangeRate ;
     contractorMaxLimit = isBuyingMode() ? balance.amount * exchangeRate : balance.amount / exchangeRate;
-    userLimit = isBuyingMode() ? getProfileData().balances[0].amount : getProfileData().balances[1].amount;
-    currency = isBuyingMode() ? '₽' : 'KEKS';
+    userLimit = isBuyingMode() ? getProfileData().balances[BalanceType.FIAT].amount : getProfileData().balances[BalanceType.CRYPTO].amount;
+    currency = isBuyingMode() ? Currency.FIAT_SYMBOL : Currency.CRYPTO;
   } else {
     contractorMinLimit = isBuyingMode() ? minAmount / exchangeRate : minAmount;
     contractorMaxLimit = isBuyingMode() ? balance.amount : balance.amount * exchangeRate;
-    userLimit = isBuyingMode() ? getProfileData().balances[0].amount / exchangeRate : getProfileData().balances[1].amount * exchangeRate;
-    currency = isBuyingMode() ? 'KEKS' : '₽';
+    userLimit = isBuyingMode() ? getProfileData().balances[BalanceType.FIAT].amount / exchangeRate : getProfileData().balances[BalanceType.CRYPTO].amount * exchangeRate;
+    currency = isBuyingMode() ? Currency.CRYPTO : Currency.FIAT_SYMBOL;
   }
 
   return {

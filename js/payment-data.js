@@ -14,6 +14,12 @@ const walletNumberInput = walletNumberBlock.querySelector('input');
 const paymentMethodSelect = modal.querySelector('#paymentMethod');
 const cardNumberInput = modal.querySelector('#card-number');
 
+const Currency = {
+  FIAT: 'RUB',
+  FIAT_SYMBOL: '₽',
+  CRYPTO: 'KEKS'
+};
+
 let selectedUser;
 let currentSellerPaymentMethods = [];
 let isBuying;
@@ -40,22 +46,22 @@ const setUserData = (user) => {
   isBuying = status === 'seller';
 
   contractorName.textContent = userName;
-  userExchangeRate.textContent = `${formatNumber(exchangeRate)} ₽`;
+  userExchangeRate.textContent = `${formatNumber(exchangeRate)} ${Currency.FIAT_SYMBOL}`;
 
   modalForm.querySelector('[name="contractorId"]').value = id;
   modalForm.querySelector('[name="exchangeRate"]').value = exchangeRate;
   modalForm.querySelector('[name="type"]').value = isBuying ? 'BUY' : 'SELL';
-  modalForm.querySelector('[name="sendingCurrency"]').value = isBuying ? 'RUB' : 'KEKS';
-  modalForm.querySelector('[name="receivingCurrency"]').value = isBuying ? 'KEKS' : 'RUB';
-  setCurrencyUnits(isBuying ? '₽' : 'KEKS', isBuying ? 'KEKS' : '₽');
+  modalForm.querySelector('[name="sendingCurrency"]').value = isBuying ? Currency.FIAT : Currency.CRYPTO;
+  modalForm.querySelector('[name="receivingCurrency"]').value = isBuying ? Currency.CRYPTO : Currency.FIAT;
+  setCurrencyUnits(isBuying ? Currency.FIAT_SYMBOL : Currency.CRYPTO, isBuying ? Currency.CRYPTO : Currency.FIAT_SYMBOL);
 
 
   if (isBuying) {
-    minCashLimit.textContent = `${formatNumber(minAmount * exchangeRate)}\u00A0₽\u00A0-`;
-    maxCashLimit.textContent = `\u00A0${formatNumber(balance.amount * exchangeRate)}\u00A0₽`;
+    minCashLimit.textContent = `${formatNumber(minAmount * exchangeRate)}\u00A0${Currency.FIAT_SYMBOL}\u00A0-`;
+    maxCashLimit.textContent = `\u00A0${formatNumber(balance.amount * exchangeRate)}\u00A0${Currency.FIAT_SYMBOL}`;
   } else {
-    minCashLimit.textContent = `${formatNumber(minAmount)}\u00A0₽\u00A0-`;
-    maxCashLimit.textContent = `\u00A0${formatNumber(balance.amount)}\u00A0₽`;
+    minCashLimit.textContent = `${formatNumber(minAmount)}\u00A0${Currency.FIAT_SYMBOL}\u00A0-`;
+    maxCashLimit.textContent = `\u00A0${formatNumber(balance.amount)}\u00A0${Currency.FIAT_SYMBOL}`;
   }
 
   verifiedMark.style.display = !isVerified ? 'none' : '';
@@ -84,4 +90,4 @@ paymentMethodSelect.addEventListener('change', () => {
 const getSelectedUser = () => selectedUser;
 const isBuyingMode = () => isBuying;
 
-export { setUserData, isBuyingMode, getSelectedUser };
+export { setUserData, isBuyingMode, getSelectedUser, Currency };
