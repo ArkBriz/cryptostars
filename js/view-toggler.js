@@ -10,6 +10,8 @@ const views = {
   map: document.querySelector('.map-container'),
 };
 
+const DELAY = togglersBlock.dataset.delay;
+
 const toggleView = (view) => {
   togglers.forEach((toggler) => {
     toggler.classList.toggle('is-active', toggler.dataset.view === view);
@@ -23,7 +25,7 @@ const toggleView = (view) => {
 
   if (view === 'map') {
     noResultsBlock.style.display = 'none';
-    setTimeout(() => map.invalidateSize(), 0);
+    setTimeout(() => map.invalidateSize(), DELAY);
   } else {
     updateUserList();
   }

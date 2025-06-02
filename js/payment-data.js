@@ -78,11 +78,7 @@ paymentMethodSelect.addEventListener('change', () => {
 
   const selectedMethodObject = currentSellerPaymentMethods.find((method) => method.provider === selectedProvider);
 
-  if (selectedMethodObject.accountNumber) {
-    cardNumberInput.value = selectedMethodObject.accountNumber;
-  } else {
-    cardNumberInput.value = '';
-  }
+  cardNumberInput.value = selectedMethodObject.accountNumber || '';
 });
 
 const getSelectedUser = () => selectedUser;

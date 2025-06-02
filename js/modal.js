@@ -12,9 +12,15 @@ const overlay = modal.querySelector('.modal__overlay');
 const walletNumberBlock = modal.querySelector('#wallet-number');
 const body = document.body;
 
+const onCloseBtnClick = () => closeModal();
+const onOverlayClick = () => closeModal();
+
 const openModal = () => {
   modal.style.display = '';
   body.classList.add('scroll-lock');
+
+  closeModalBtn.addEventListener('click', onCloseBtnClick);
+  overlay.addEventListener('click', onOverlayClick);
   document.addEventListener('keydown', onEscKeydown);
 };
 
@@ -23,6 +29,9 @@ const closeModal = () => {
   body.classList.remove('scroll-lock');
   modalForm.reset();
   resetFormValidation();
+
+  closeModalBtn.removeEventListener('click', onCloseBtnClick);
+  overlay.removeEventListener('click', onOverlayClick);
   document.removeEventListener('keydown', onEscKeydown);
 };
 
@@ -54,11 +63,5 @@ function onEscKeydown (evt) {
     closeModal();
   }
 }
-
-const onCloseBtnClick = () => closeModal();
-const onOverlayClick = () => closeModal();
-
-closeModalBtn.addEventListener('click', onCloseBtnClick);
-overlay.addEventListener('click', onOverlayClick);
 
 export { openModal };
